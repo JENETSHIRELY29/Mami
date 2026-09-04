@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For Mami ❤️</title>
+
+
+<style>
+
+/* =========================================
+   BASIC
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    width: 100%;
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    font-family:
+        "Comic Sans MS",
+        "Segoe Print",
+        cursive;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f9e4ed,
+            #eee8f7,
+            #e5eef8
+        );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: #40363b;
+
+}
+
+/* =========================================
+   HOME SCREEN
+========================================= */
+
+.home {
+
+    width: 100%;
+
+    height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+
+}
+
+
+.home.hide {
+
+    opacity: 0;
+
+    transform: scale(1.08);
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================
+   HOME TEXT
+========================================= */
+
+.home-text {
+
+    font-size: 18px;
+
+    margin-bottom: 45px;
+
+    color: #51464c;
+
+    padding: 0 20px;
+
+}
+
+
+/* =========================================
+   ENVELOPE
+========================================= */
+
+.envelope {
+
+    width: 170px;
+
+    height: 115px;
+
+    position: relative;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease;
+
+}
+
+
+.envelope:hover {
+
+    transform:
+        translateY(-8px)
+        rotate(-2deg);
+
+}
+
+
+.envelope-body {
+
+    position: absolute;
+
+    width: 100%;
+
+    height: 100%;
+
+    background: #fffdfb;
+
+    border: 3px solid #242024;
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 15px 30px
+        rgba(70,40,50,0.15);
+
+}
+
+
+.envelope-body::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: 0;
+
+    width: 50%;
+
+    height: 3px;
+
+    background: #242024;
+
+    transform:
+        rotate(31deg);
+
+    transform-origin:
+        left bottom;
+
+}
+
+
+.envelope-body::after {
+
+    content: "";
+
+    position: absolute;
+
+    right: 0;
+
+    bottom: 0;
+
+    width: 50%;
+
+    height: 3px;
+
+    background: #242024;
+
+    transform:
+        rotate(-31deg);
+
+    transform-origin:
+        right bottom;
+
+}
+
+
+.flap {
+
+    position: absolute;
+
+    top: -1px;
+
+    left: 0;
+
+    width: 0;
+
+    height: 0;
+
+    border-left:
+        85px solid transparent;
+
+    border-right:
+        85px solid transparent;
+
+    border-top:
+        62px solid #fdfdfd;
+
+    z-index: 3;
+
+    filter:
+        drop-shadow(
+            0 1px 0 #242024
+        );
+
+}
+
+
+.heart {
+
+    position: absolute;
+
+    z-index: 5;
+
+    left: 50%;
+
+    top: 48%;
+
+    transform:
+        translate(-50%, -50%);
+
+    font-size: 32px;
+
+    color: #ef476f;
+
+}
+
+
+/* =========================================
+   TAP TEXT
+========================================= */
+
+.tap-text {
+
+    margin-top: 35px;
+
+    font-size: 18px;
+
+    color: #51464c;
+
+}
+
+
+.arrow {
+
+    margin-top: 10px;
+
+    font-size: 22px;
+
+    animation:
+        bounce 1.5s infinite;
+
+}
+
+
+@keyframes bounce {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(7px);
+    }
+
+}
+
+
+/* =========================================
+   POPUP OVERLAY
+========================================= */
+
+.overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(70,55,35,0.30);
+
+    backdrop-filter:
+        blur(5px);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition:
+        opacity 0.5s ease;
+
+    z-index: 20;
+
+}
+
+
+.overlay.show {
+
+    opacity: 1;
+
+    visibility: visible;
+
+}
+
+
+/* =========================================
+   LETTER BOX
+   PHOTO IS INSIDE THIS BOX
+========================================= */
+
+.letter {
+
+    width: 100%;
+
+    max-width: 720px;
+
+    max-height: 85vh;
+
+    overflow-y: auto;
+
+    position: relative;
+
+    border-radius: 24px;
+
+    padding: 35px 45px 50px;
+
+    box-shadow:
+        0 25px 70px
+        rgba(40,25,35,0.30);
+
+    transform:
+        scale(0.75)
+        translateY(30px);
+
+    transition:
+        transform 0.6s
+        cubic-bezier(.2,.8,.2,1);
+
+
+    /*
+       YOUR PHOTO IS THE BACKGROUND
+       OF THE LETTER ONLY
+    */
+
+    background-image:
+
+        linear-gradient(
+            rgba(255, 250, 240, 0.72),
+            rgba(255, 250, 240, 0.72)
+        ),
+
+        url("us.jpg.jpeg");
+
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
+
+}
+
+
+.overlay.show .letter {
+
+    transform:
+        scale(1)
+        translateY(0);
+
+}
+
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+.letter::-webkit-scrollbar {
+
+    width: 6px;
+
+}
+
+
+.letter::-webkit-scrollbar-thumb {
+
+    background: #d1aeb9;
+
+    border-radius: 10px;
+
+}
+
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+.close {
+
+    position: sticky;
+
+    top: 0;
+
+    margin-left: auto;
+
+    width: 36px;
+
+    height: 36px;
+
+    border-radius: 50%;
+
+    border: none;
+
+    background: rgba(255,255,255,0.75);
+
+    font-size: 21px;
+
+    cursor: pointer;
+
+    display: block;
+
+    z-index: 10;
+
+}
+
+
+/* =========================================
+   LETTER HEADER
+========================================= */
+
+.letter-header {
+
+    text-align: center;
+
+    padding:
+        5px 10px 25px;
+
+}
+
+
+.letter-header p {
+
+    font-size: 15px;
+
+    color: #685861;
+
+    margin: 10px 0;
+
+}
+
+
+.letter-header h1 {
+
+    font-size: 40px;
+
+    font-weight: normal;
+
+    margin: 10px 0;
+
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.message {
+
+    padding-top: 25px;
+
+    border-top:
+        1px solid
+        rgba(80,60,70,0.25);
+
+}
+
+
+/* =========================================
+   MESSAGE PARAGRAPHS
+========================================= */
+
+.message p {
+
+    font-size: 17px;
+
+    line-height: 1.9;
+
+    margin:
+        0 0 23px;
+
+    /*
+       Slight background makes writing
+       easier to read while keeping
+       the photo visible.
+    */
+
+    text-shadow:
+        0 1px 1px
+        rgba(255,255,255,0.5);
+
+}
+
+
+/* =========================================
+   QUOTE
+========================================= */
+
+.quote {
+
+    background:
+        rgba(255,250,242,0.60);
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    margin:
+        30px 0;
+
+    text-align: center;
+
+    font-size: 19px;
+
+    line-height: 1.7;
+
+    box-shadow:
+        0 5px 15px
+        rgba(60,40,40,0.06);
+
+}
+
+
+/* =========================================
+   BIG LINES
+========================================= */
+
+.big {
+
+    text-align: center;
+
+    font-size: 25px;
+
+    line-height: 1.6;
+
+    color: #714d5c;
+
+    margin:
+        40px 0;
+
+    background:
+        rgba(255,250,242,0.48);
+
+    border-radius: 15px;
+
+    padding: 15px;
+
+}
+
+
+/* =========================================
+   END
+========================================= */
+
+.end {
+
+    text-align: center;
+
+    border-top:
+        1px solid
+        rgba(80,60,70,0.25);
+
+    margin-top: 40px;
+
+    padding-top: 35px;
+
+}
+
+
+.end h2 {
+
+    font-size: 32px;
+
+    font-weight: normal;
+
+}
+
+
+.end p {
+
+    font-size: 17px;
+
+    line-height: 1.85;
+
+}
+
+
+.final-line {
+
+    font-size: 28px;
+
+    color: #714d5c;
+
+    margin:
+        40px 0;
+
+    background:
+        rgba(255,250,242,0.50);
+
+    border-radius: 15px;
+
+    padding: 18px;
+
+}
+
+
+/* =========================================
+   MUSIC BUTTON
+========================================= */
+
+.music-button {
+
+    position: fixed;
+
+    right: 18px;
+
+    bottom: 18px;
+
+    z-index: 30;
+
+    border: none;
+
+    border-radius: 30px;
+
+    padding: 12px 18px;
+
+    background: #40363b;
+
+    color: white;
+
+    font-family: Arial, sans-serif;
+
+    cursor: pointer;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:600px) {
+
+
+    .home-text {
+
+        font-size: 16px;
+
+    }
+
+
+    .envelope {
+
+        transform:
+            scale(.9);
+
+    }
+
+
+    .letter {
+
+        max-height: 88vh;
+
+        padding:
+            25px 20px 35px;
+
+        border-radius: 20px;
+
+
+        /* mobile photo positioning */
+
+        background-position:
+            center center;
+
+    }
+
+
+    .letter-header h1 {
+
+        font-size: 32px;
+
+    }
+
+
+    .message p {
+
+        font-size: 16px;
+
+        line-height: 1.85;
+
+    }
+
+
+    .quote {
+
+        font-size: 17px;
+
+    }
+
+
+    .big {
+
+        font-size: 22px;
+
+    }
+
+
+    .final-line {
+
+        font-size: 24px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+<!-- =========================================
+     HOME SCREEN
+========================================= -->
+
+<div
+    class="home"
+    id="home"
+>
+
+
+    <div class="home-text">
+
+        Pssst… I have something
+        for you. ❤️
+
+    </div>
+
+
+    <div
+        class="envelope"
+        onclick="openLetter()"
+    >
+
+        <div class="envelope-body"></div>
+
+        <div class="flap"></div>
+
+        <div class="heart">
+            ♥
+        </div>
+
+    </div>
+
+
+    <div class="tap-text">
+
+        Tap the envelope
+
+    </div>
+
+
+    <div class="arrow">
+
+        ↓
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================================
+     POPUP
+========================================= -->
+
+<div
+    class="overlay"
+    id="overlay"
+>
+
+
+    <div class="letter">
+
+
+        <button
+            class="close"
+            onclick="closeLetter()"
+        >
+
+            ×
+
+        </button>
+
+
+        <!-- HEADER -->
+
+        <div class="letter-header">
+
+            <p>
+                A little late… but from the heart.
+            </p>
+
+            <h1>
+                Hey, Mami ❤️
+            </h1>
+
+            <p>
+                Here's the little story I wanted
+                to tell you.
+            </p>
+
+        </div>
+
+
+        <!-- =================================
+             MESSAGE
+        ================================= -->
+
+        <div class="message">
+
+
+            <p>
+
+                Okay mami, this might be a little cringe 😂
+                but paravala… inaiku nee konjam tolerate
+                paniko.
+
+               Here’s a little story about how I got this பெண் தோழி in my life 😌✨ ❤️
+
+            </p>
+
+
+            <p>
+
+                For a long time, I was living a very
+                comfortable life with my parents I have my own little set of people
+                my school friends. Life always felt so good and comfortable with them.
+                Every day, we meet at school, have so much fun, laugh over the silliest things,
+                and just enjoy every moment together.
+
+            </p>
+
+
+            <p>
+
+                But school mudincha apram,
+                ellarum avanga avanga life ah pathutu poganum,
+                ellarum pirinjiduvanga nu realise
+                panumbodhu, adha accept panradhu
+                enakku romba kashtama irundhuchu.
+
+            </p>
+
+
+            <p>
+
+                Then came this next phase of my life —
+                college.
+
+                Pudhu place, pudhu people,
+                pudhu friendships.
+
+            </p>
+
+
+            <p>
+
+                But epdi friend set avanga, will it work indha bayam la irundhuchu
+                nanepoi yaru kita uh msg pani pesikala enaku msg panavangaluku matu reply panitu irundha 
+                irundhalu namaku inga set aguma thonitae irundhuchu
+
+            </p>
+
+
+            <p>
+                Then came the college Open Day everyone in the group had 
+                started discussing among themselves, trying to find a 
+                travel partner to go to college with, na hesitate panitu
+                irundhuta but deep down, I also wished I had someone to go with me.
+                And then, surprisingly, one girl 
+                suddenly messaged me asking,
+
+                 <b>
+                   “Shall we go together?” 😭😂❤️
+                </b>
+
+
+            <p>
+                Honestly, I felt a little happy somehow… at least thaniya poga venda, oru ponnu kooda varaa nu oru nambikkai vandhuduchu 💪🏻
+
+So, full confidence-oda poi bus eri, first seat-la ukkandhu, ava era pora bus stop-ku wait pannitu irundhen. But the funny part is Enaku ava epdi irupanu theriyadhu🫠, endha stop-la eruvanu kooda theriyadhu! 😭 Ava sonna “senthu polam” nu oru hope la mattum ukkandhu wait pannitu irundhen.
+
+Finally, ava stop vandhuchu. Oru ponnu bus la erina odane, konjam doubt oda poi, “Nee dhaan Maneesha-va?” nu ketten. Ava “Yes” nu sonna odane, <b>“Apadi, sonna maari vandhuta”</b> nu nenachen 🫣🫣
+
+But … <b>indha ponnu enaku oru periya surprise vechuruka nu apo enaku therila friendsss</b>🙃
+
+Gandhipuram-la eranguna apram, “Next epdi poganum, Maneesha?” nu ketten. Ava romba casual-ah, “Enakum theriyadhu!” nu sonna 😵‍💫😵‍💫
+
+Avlodhaan… <b>en confidence mothamu pochu</b> 😂 Naan enna nenachana, “Seri, ava enna kootitu college poiduva” nu aana rendu perukum routee theriyala
+
+Finally, we both just followed the people with purple ID cards 💜and somehow managed to reach the college. 😂
+
+And that’s how, without even knowing each other properly, <b>our first journey together started</b>
+
+            </p>
+
+
+            <p>
+                “One day mattum dhaan” nu nenacha journey…
+                became one week,
+                then one month…
+                and somehow, it just kept continuing. 🥹❤️
+
+                Before we even realised it, you became my bus partner. 🚌
+
+                rendu perukum viruppam irundhucho illayo… somehow, 
+                friends aaitom! 😂 We started sitting together, talking, 
+                laughing, and slowly that one random journey became a daily routine.
+            </p>
+
+                somehow, without me noticing,
+                you had created a place in my life.
+
+
+
+            <p>
+
+                I always thought childhood friends had
+                a special place that couldn't really
+                be replaced.
+
+                 But I never imagined that someone I met
+                in the middle of my life could come and
+                sit right there beside them.
+                  And when I realised you were possessive
+                about me…
+
+                <br>
+
+                honestly, that felt different. 🥹
+
+
+
+            </p>
+
+            <p>
+
+                Because the first time,
+                I had a friend who genuinely gave me
+                that kind of importance, At first, enaku adhu purinjuka therila. 🫠 
+                We had so many fights, misunderstandings, 
+                and silly arguments… sometimes I even wondered, “Why is she taking all this so seriously?”
+
+                But slowly, I started realising something…
+                All those little things she was doing all of that because I mattered to her as a friend. ❤️
+                
+                At that point 
+                I realised how special this friendship actually was. 🥹
+
+                But the best part  I still love the most,
+                was this…
+                 Whenever you came to me and said, <b>“I have so much to tell you…” 👀</b>
+
+            </p>
+
+
+
+            <p>
+
+                I don't know if I've ever told you this,
+                but I genuinely love giving you that time.
+                Because somewhere, I realised that I had
+                missed having this kind of person in my life.
+
+                Recently, during my akka's wedding work,
+                we had so little time together.
+
+                But even in that little time,
+                you had so many things to share with me.
+
+                
+                I wanted to sit there and listen to
+                everything.
+
+                But time didn't allow us.
+
+                And that was the moment I realised
+                how much I missed our college days.
+
+                
+                We may not talk every single day like
+                we used to.
+
+                Life changed.
+
+                We both have our own things going on.
+
+                But I don't think that changes
+                the bond we have.
+
+                Some friendships don't need daily
+                conversations to prove that they're
+                still there.
+                <b>And ours is one of those. 🤍</b>
+
+
+            </p>
+
+
+
+        </div>
+
+
+
+        <!-- =================================
+             ENDING
+        ================================= -->
+
+        
+
+            <p>
+
+                I want us to be those two idiots who,
+                even after years, can sit together and
+                talk like nothing ever changed.
+
+            </p>
+
+
+            <div class="big">
+
+                Belated Happy Birthday, Mami. 🎂❤️
+                Keep being the same crazy, caring, possessive, irritating, lovable person you are. 😂🫂
+
+                <br><br>
+
+ 
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     MUSIC
+========================================= -->
+
+<audio
+    id="music"
+    loop
+>
+
+    <source
+        src="song.mp3"
+        type="audio/mpeg"
+    >
+
+</audio>
+
+
+<button
+    class="music-button"
+    onclick="toggleMusic()"
+    id="musicButton"
+>
+
+    ♫ Play our song
+
+</button>
+
+
+
+<script>
+
+
+/* =========================================
+   OPEN LETTER
+========================================= */
+
+function openLetter() {
+
+    const music = document.getElementById("music");
+
+    // Start the song when she taps the envelope
+    music.volume = 0.35;
+
+    music.play().catch(function(error) {
+        console.log("Music could not autoplay:", error);
+    });
+
+
+    document
+        .getElementById("home")
+        .classList
+        .add("hide");
+
+
+    setTimeout(function() {
+
+        document
+            .getElementById("overlay")
+            .classList
+            .add("show");
+
+    }, 500);
+
+}
+
+
+/* =========================================
+   CLOSE LETTER
+========================================= */
+
+function closeLetter() {
+
+    document
+        .getElementById("overlay")
+        .classList
+        .remove("show");
+
+
+    setTimeout(function() {
+
+        document
+            .getElementById("home")
+            .classList
+            .remove("hide");
+
+    }, 500);
+
+}
+
+
+/* =========================================
+   MUSIC
+========================================= */
+
+function toggleMusic() {
+
+    const music =
+        document.getElementById("music");
+
+    const button =
+        document.getElementById("musicButton");
+
+
+    if (music.paused) {
+
+        music.play();
+
+        button.innerHTML =
+            "♫ Music playing";
+
+    }
+
+    else {
+
+        music.pause();
+
+        button.innerHTML =
+            "♫ Play our song";
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>
